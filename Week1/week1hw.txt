@@ -1,0 +1,31 @@
+The main distinction between Command Line Interface (CLI) and Graphical User Interface (GUI) is in how users engage with a computer system. The CLI is a text-based interface where users enter commands to execute tasks. For instance, in Windows, typing "dir" displays files and directories. 
+
+According to https://phoenixnap.com/kb/cli-vs-gui where I got my information, here are the top differences between the two systems, 
+ 
+-The CLI operates based on commands a user inputs in the terminal. (can be accessed by pressing windows key and typing in “cmd” 
+
+-Misspelling commands results in an error or a wrong action. Some commands are potentially dangerous, such as the Linux rm command, which deletes files without confirmation
+
+- Efficiency: Skilled users can execute commands swiftly, often completing tasks faster than they would using a GUI.
+
+- Resource Usage: It typically uses fewer system resources, making it ideal for computers with limited capabilities.
+
+- Precision: Users have greater control over specific system operations and can automate processes through scripts.
+
+- Learning Curve: Mastering the CLI requires memorizing commands and syntax
+
+On the other hand, GUI allows users to interact with the computer through visual elements like windows, icons, and buttons. For example, clicking an icon can open an application. GUIs have their own benefits:
+
+-The GUI is intuitive, and there is little room for error. The users are often asked to confirm different actions in popup windows.
+
+-The GUI operates through visual elements such as icons, buttons, windows, dialog boxes, etc.
+
+- User-Friendly: They provide an intuitive navigation system, making them more approachable for novices.
+
+- Visual Feedback: Users can see their actions in real-time, enhancing understanding and minimizing mistakes.
+
+- Multitasking: GUIs facilitate easy switching between applications via tabs and windows.
+
+- Customization: Many GUIs allow personalization options, such as themes and layouts, to fit user preferences.
+
+In conclusion, while CLIs deliver powerful control and efficiency for advanced users through text commands, GUIs offer a more user-friendly and visual experience.
