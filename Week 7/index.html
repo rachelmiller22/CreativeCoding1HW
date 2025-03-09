@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Homework</title>
+
+    <!-- External Style Sheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Embedded Styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, p {
+            color: darkblue;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        #main-header {
+            text-align: center;
+            font-size: 2em;
+        }
+        #footer {
+            text-align: center;
+            padding: 10px;
+            background-color: lightgray;
+        }
+    </style>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1 id="main-header">Welcome to My CSS Homework Page</h1>
+    <p class="highlight" style="font-weight: bold; color: red;">This is a paragraph with inline styles.</p>
+    <p style="text-decoration: underline;">This is another paragraph with inline styles.</p>
+    <h2>About Me</h2>
+    <p class="highlight">I am learning how to use CSS in Visual Studio Code.</p>
+
+    <footer id="footer">This is the footer of the page.</footer>
+</body>
+</html>
+
+<!-- Second Page with Background Image -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-header">Welcome to the Second Page</h1>
+    <p class="highlight">This page has a background image.</p>
+    <footer id="footer">Footer with background image.</footer>
+</body>
+</html>
+
+/* External styles.css */
+.highlight {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+#main-header {
+    background-color: lightblue;
+    padding: 20px;
+}
+
+#footer {
+    font-style: italic;
+    color: darkgray;
+}
