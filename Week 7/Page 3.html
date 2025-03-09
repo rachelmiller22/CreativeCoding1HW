@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,37 +20,50 @@
             localStorage.setItem('submissions', JSON.stringify(submissions));
         }
     </script>
+    
+    <!-- Embedded Styles -->
+    <style>
+        h2 {
+            color: #0056b3;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            background-color: #e1b74c;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+
+    <link rel="stylesheet" href="mainstyle.css">
 </head>
 <body>
-  <li><a href="Homepage.html">Homepage</a></li>
-  <li><a href="Page2.html">Aboutme</a></li>
+    <li><a href="index.html">Homepage</a></li>
+    <li><a href="Page2.html">Aboutme</a></li>
     </header>
 
     <section>
         <h2>Share Your Hobbies and Interests</h2>
         <form onsubmit="showThankYou(); return false;">
             <label for="name">Your Name:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <input type="text" id="name" name="name" required style="border: 2px solid #ccc; padding: 8px; margin: 5px 0;"><br><br>
 
             <label for="hobbies">Your Hobbies:</label><br>
-            <textarea id="hobbies" name="hobbies" rows="4" cols="50" required></textarea><br><br>
+            <textarea id="hobbies" name="hobbies" rows="4" cols="50" required style="border: 2px solid #ccc; padding: 8px;"></textarea><br><br>
 
             <label for="interests">Your Interests:</label><br>
-            <textarea id="interests" name="interests" rows="4" cols="50" required></textarea><br><br>
-                <button type=submit">Submit</a>
+            <textarea id="interests" name="interests" rows="4" cols="50" required style="border: 2px solid #ccc; padding: 8px;"></textarea><br><br>
+            
+            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Submit</button>
         </form>
     </section>
-  </header>
-  <section>
-  <img src="thankyou.jpg" alt="" srcset="">
 
-    <footer>
-        <nav>
-            <ul>
-          
-            </ul>
-        </nav>
-    </footer>
-</body>
-</html>
+    <section>
+        <img src="thankyou.jpg" alt="Thank you image">
+    </section>
 
