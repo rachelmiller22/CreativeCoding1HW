@@ -1,0 +1,106 @@
+/* mainstyle.css */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1, h2, p {
+    color: darkslateblue;
+}
+
+ul, ol {
+    color: rgb(203, 89, 22);
+}
+
+.background-image {
+    background-image: url('background.JPEG');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+/* Class selectors */
+.section-title {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ID selectors */
+#main-header {
+    padding: 20px;
+    background-color: lightgray;
+}
+
+#hobbies-section, #goals-section {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+h2 {
+    color: #0056b3;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+input[type="text"], textarea {
+    border: 2px solid #ccc;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+button[type="submit"] {
+    background-color: #c5ac2d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        .question {
+            font-size: 1.5em;
+        }
+        input[type='number'] {
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #af874c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+      
+
+}

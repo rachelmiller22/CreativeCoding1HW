@@ -1,0 +1,124 @@
+<html></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const terms = document.getElementById('terms');
+
+            if (!name.value.trim()) {
+                isValid = false;
+                name.style.borderColor = 'red';
+                name.focus();
+                alert('Please enter your name.');
+                return;
+            } else {
+                name.style.borderColor = '#ccc';
+            }
+
+            if (!email.value.trim()) {
+                isValid = false;
+                email.style.borderColor = 'red';
+                email.focus();
+                alert('Please enter your email.');
+                return;
+            } else {
+                email.style.borderColor = '#ccc';
+            }
+
+            if (!terms.checked) {
+                isValid = false;
+                alert('You must agree to the terms.');
+                terms.focus();
+                return;
+            }
+
+            if (isValid) {
+                showThankYou();
+            }
+        }
+
+        function showThankYou() {
+            alert('Thank you for sharing your hobbies and interests!');
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('hobbies').value = '';
+            document.getElementById('interests').value = '';
+            document.getElementById('terms').checked = false;
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const hobbies = document.getElementById('hobbies').value;
+            const interests = document.getElementById('interests').value;
+            
+            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+            submissions.push({ name, email, hobbies, interests });
+            localStorage.setItem('submissions', JSON.stringify(submissions));
+        }
+    </script>
+    
+    <style>
+        h2 {
+            color: #0056b3;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            background-color: #e1b74c;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+
+    <link rel="stylesheet" href="mainstyle.css">
+</head>
+<body>
+    <nav>
+        <p>Click About you, to let me know about you!:</p>
+    <nav>
+       <li class=""></li> <a href="index.html">Homepage</a>
+       <li></li> <a href="Page2.html">My favorite things!</a>
+       <li></li> <a href="Page 3.html">About you/contact</a>
+       <li></li> <a href="page4.html">Math Game</a>
+
+    </nav>
+    
+    <section>
+        <h2>Share Your Hobbies and Interests</h2>
+        <form onsubmit="validateForm(event);">
+            <label for="name">Your Name:</label><br>
+            <input type="text" id="name" name="name" style="border: 2px solid #ccc; padding: 8px; margin: 5px 0;"><br><br>
+
+            <label for="email">Your Email:</label><br>
+            <input type="email" id="email" name="email" style="border: 2px solid #ccc; padding: 8px; margin: 5px 0;"><br><br>
+
+            <label for="hobbies">Your Hobbies:</label><br>
+            <textarea id="hobbies" name="hobbies" rows="4" cols="50" style="border: 2px solid #ccc; padding: 8px;"></textarea><br><br>
+
+            <label for="interests">Your Interests:</label><br>
+            <textarea id="interests" name="interests" rows="4" cols="50" style="border: 2px solid #ccc; padding: 8px;"></textarea><br><br>
+            
+            <label for="terms">
+                <input type="checkbox" id="terms" name="terms"> I agree to the terms and conditions
+            </label><br><br>
+
+            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Submit</button>
+        </form>
+    </section>
+
+    <section>
+        <img src="thankyou.jpg" alt="Thank you image">
+    </section>
+</body>
+</html>
