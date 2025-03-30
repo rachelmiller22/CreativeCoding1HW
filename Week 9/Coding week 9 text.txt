@@ -1,0 +1,50 @@
+function setup() {
+  createCanvas(400, 400);
+  background(220);
+
+  textSize(16);
+  textAlign(CENTER);
+  text("Epicness in a picture", width / 2, 20);
+  
+
+  fill(255, 224, 189);
+  ellipse(200, 200, 150, 180);
+  
+  fill(255);
+  ellipse(175, 180, 40, 20);
+  ellipse(225, 180, 40, 20);
+  fill(0);
+  ellipse(175, 180, 10, 10);
+  ellipse(225, 180, 10, 10);
+
+  
+  stroke(0);
+  strokeWeight(2);
+  line(160, 170, 190, 170);
+  line(210, 170, 240, 170);
+  
+  fill(255, 105, 180);
+  noStroke();
+  arc(200, 250, 60, 40, 0, PI, CHORD);
+
+ 
+  fill(255, 204, 153);
+  triangle(195, 200, 205, 200, 200, 220);
+
+  stroke(139, 69, 19);
+  strokeWeight(3);
+  for (let i = 110; i < 140; i += 10) {
+    curve(i - 80, 150, i, 170, i - 30, 230, i - 10, 270);
+  }
+  for (let i = 260; i < 290; i += 10) { 
+    curve(i + 80, 150, i, 170, i + 30, 230, i + 10, 270);
+  }
+  
+  fill(50, 50, 50);
+  rect(150, 280, 100, 100);
+  
+  
+  fill(0);
+  textSize(12);
+  text("[Rachel Miller]", width - 50, height - 10);
+}
