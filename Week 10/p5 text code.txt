@@ -1,0 +1,192 @@
+let xShapes = [];
+let yShapes = [];
+let diagShape;
+let titleSize = 16;
+let titleDirection = 1;
+let titleCycle = 0;
+
+let nameX = 350, nameY = 390;
+let nameStep = 2;
+let nameDirection = 0;
+
+let headSize = 150;
+let headGrowing = true;
+
+let colors = [];
+let colorPalette = [
+  [255, 0, 0],      // red
+  [255, 165, 0],    // orange
+  [255, 255, 0],    // yellow
+  [0, 255, 0],      // green
+  [0, 255, 255],    // cyan
+  [255, 0, 255],    // magenta
+  [138, 43, 226]    // purple
+];
+
+function setup() {
+  createCanvas(400, 400);
+
+  //  color stars
+  for (let c of colorPalette) {
+    colors.push(color(c[0], c[1], c[2]));
+  }
+
+  for (let i = 0; i < 2; i++) {
+    xShapes.push({
+      x: random(width),
+      y: random(height),
+      speed: random(1, 3),
+      dir: 1,
+      color: random(colors)
+    });
+    yShapes.push({
+      x: random(width),
+      y: random(height),
+      speed: random(1, 3),
+      dir: 1,
+      color: random(colors)
+    });
+  }
+
+  diagShape = {
+    x: random(width),
+    y: random(height),
+    xSpeed: random(1, 3),
+    ySpeed: random(1, 3),
+    xDir: 1,
+    yDir: 1,
+    color: random(colors)
+  };
+}
+
+function draw() {
+  background(220);
+
+  // Animate title text
+  textAlign(CENTER);
+  fill(0);
+  textSize(titleSize);
+  text("Epicness in a picture", width / 2, 20);
+  titleSize += titleDirection;
+  if (titleSize >= 26 || titleSize <= 16) {
+    titleCycle++;
+    if (titleCycle >= 5) {
+      titleDirection *= -1;
+      titleCycle = 0;
+    }
+  }
+
+  // Animate head 
+  if (headGrowing) {
+    headSize += 0.5;
+    if (headSize >= 160) headGrowing = false;
+  } else {
+    headSize -= 0.5;
+    if (headSize <= 140) headGrowing = true;
+  }
+
+  // Head
+  fill(255, 224, 189);
+  ellipse(200, 200, headSize, 180);
+
+  // Eyes
+  fill(255);
+  ellipse(175, 180, 40, 20);
+  ellipse(225, 180, 40, 20);
+  fill(0);
+  ellipse(175, 180, 10, 10);
+  ellipse(225, 180, 10, 10);
+
+  // Eyebrows
+  stroke(0);
+  strokeWeight(2);
+  line(160, 170, 190, 170);
+  line(210, 170, 240, 170);
+
+  // Mouth
+  fill(255, 105, 180);
+  noStroke();
+  arc(200, 250, 60, 40, 0, PI, CHORD);
+
+  // Nose
+  fill(255, 204, 153);
+  triangle(195, 200, 205, 200, 200, 220);
+
+  // Hair
+  stroke(139, 69, 19);
+  strokeWeight(3);
+  for (let i = 110; i < 140; i += 10) {
+    curve(i - 80, 150, i, 170, i - 30, 230, i - 10, 270);
+  }
+  for (let i = 260; i < 290; i += 10) { 
+    curve(i + 80, 150, i, 170, i + 30, 230, i + 10, 270);
+  }
+
+  // Body
+  fill(50, 50, 50);
+  rect(150, 280, 100, 100);
+
+  // X-axis stars
+  for (let shape of xShapes) {
+    fill(shape.color);
+    drawStar(shape.x, shape.y, 8, 15, 5);
+    shape.x += shape.speed * shape.dir;
+    if (shape.x > width || shape.x < 0) {
+      shape.dir *= -1;
+      shape.color = random(colors);
+    }
+  }
+
+  // Y-axis stars
+  for (let shape of yShapes) {
+    fill(shape.color);
+    drawStar(shape.x, shape.y, 8, 15, 5);
+    shape.y += shape.speed * shape.dir;
+    if (shape.y > height || shape.y < 0) {
+      shape.dir *= -1;
+      shape.color = random(colors);
+    }
+  }
+//stars
+  fill(diagShape.color);
+  drawStar(diagShape.x, diagShape.y, 7, 13, 5);
+  diagShape.x += diagShape.xSpeed * diagShape.xDir;
+  diagShape.y += diagShape.ySpeed * diagShape.yDir;
+  if (diagShape.x > width || diagShape.x < 0) {
+    diagShape.xDir *= -1;
+    diagShape.color = random(colors);
+  }
+  if (diagShape.y > height || diagShape.y < 0) {
+    diagShape.yDir *= -1;
+    diagShape.color = random(colors);
+  }
+
+  fill(0);
+  textSize(12);
+  text("[Rachel Miller]", nameX, nameY);
+
+  if (nameDirection === 0) nameX -= nameStep;
+  else if (nameDirection === 1) nameY -= nameStep;
+  else if (nameDirection === 2) nameX += nameStep;
+  else if (nameDirection === 3) nameY += nameStep;
+
+  if (nameX <= 250 && nameDirection === 0) nameDirection = 1;
+  else if (nameY <= 290 && nameDirection === 1) nameDirection = 2;
+  else if (nameX >= 350 && nameDirection === 2) nameDirection = 3;
+  else if (nameY >= 390 && nameDirection === 3) nameDirection = 0;
+}
+
+function drawStar(x, y, radius1, radius2, npoints) {
+  let angle = TWO_PI / npoints;
+  let halfAngle = angle / 2.0;
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let sx = x + cos(a) * radius2;
+    let sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
