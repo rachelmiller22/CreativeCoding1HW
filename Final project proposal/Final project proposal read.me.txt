@@ -1,0 +1,144 @@
+4/21/25
+Final project proposal 
+Final project idea
+Cut the rope/ Snip snack
+Character: Alien; like the game. 
+Objective, cut the rope to get the piece of candy to the creature, will need a dropdown menu for levels, and will include 5 levels. 
+Design elements: and Overview
+For my final project, I’m working on a game inspired by Cut the Rope, which was one of my favorite games as a kid. I used to play it all the time on my iPod Touch. I will attempt to recreate the green monster from the original game, and also will use ropes and points to swing the candy and each rope will be designed to make the candy stay somewhere that allows the player to get the creature to eat it. My game will be space themed, having a different backgrounds for the levels
+Inspiration
+I was actually inspired by the example work in the course website, seeing the flappy bird inspired game made me remember when I was younger all the games I would play on my ipod touch. Cut the rope was one of my favorites. I also played a lot of games like Where’s My Water, and Angry Birds, which both use playful characters and simple design elements or removal of elements to create puzzles. 
+Technologies or problems
+This is going to be fairly difficult because I have not incorporated collision messages, borders or ways to clear an object
+Creating different ropes and level designs will be a challenge, I have only done games with no background
+Use of pngs/generating or drawing images that I will use, I’m thinking images will look more polished
+Making the rope animation will be difficult because I will have to animate it as well to stay within the borders, be able to cut them, animate them to bounce ect 
+I will probably have to offer a hint button as well
+Learn how to make them swing and fall properly when they’re cut. I’ll also need to figure out how to put collisions for  when the candy hits a wall, will have to input a fail screen, restart instead of the game just freezing 
+Never used dropdown menus, as well as changing a background to a different game.
+
+
+Week 1 (Now):
+Finish and submit this proposal.
+Start sketching ideas for the alien, candy, rope layouts, and level backgrounds.
+Complete the code, type out paper, research A LOT of code. This is going to be the worst part. 
+Find png images to use, sketch out nom (character) 
+Look up how to animate ropes and physics in p5.js. as well as as lot of LET functions and functions themselves
+Fish through tutorials
+Sample code to test how rope cutting might work, as well as the physics, upload images 
+
+( drawn on ipad  or generated) 
+Week 2:
+Get the main game loop working: cutting ropes, candy falling, and checking for success.
+Build Levels
+Make the dropdown level menu  including start screen
+Start designing the background and get a basic character animation working (like blinking or bouncing).
+Begin testing the rope mechanics with more complex layouts.
+
+Week 3 (Final Week):
+Finish Levels 4 and 5.
+Add the hint button, which might show the best order to cut the ropes.
+Final polish
+Playtest 
+Turn in.
+
+Progress So Far ( I just did a lot of code this week, I’m mostly done but that would be a schedule id follow)
+4/21/25
+Put thought into how the game will look  such as the candy and alien character, and I’ve made some notes about how I want each level to be different from the others such as the background. I’ve also started testing out how to make the rope mechanic work by experimenting with lines. Next, I’m planning to get one working level done before I move on to making the rest. Finalize the intro/start screen visuals Venus, spaceship, Nom peeking, Start working on the class for rope physics multiple segments with constraint-style behavior Research existing examples of rope simulation in p5.js or making things disappear /be served 
+
+
+4/22/25
+Working on the design of the start screen where I need to make a start button and instructions, the start page will need to go to the first level, I want to make a dropdown menu for the game as well, I also am going to create an image of Om Nom, which I want to be blue with antennas, while maintaining some resemblance to the game, I want a spaceship and the planet venus in the start screen. 
+4/23/25
+Working on this proposal mostly, I got the images and the start screen done, created the nom character, created a Venus planet floating, made space rocks move, some shooting stars and a spaceship as well as a title that I created that I thought was creative. Working on the psychics of the rope which will be the biggest challenge,  I am going to use points or segments  using arrays of p5.Vector objects that give tension and gravity, making the rope move like it’s swinging or bouncing when cut. I'll have to put in mouse detection for clicking on or near the rope, and then break it to let the candy fall. Rope: an array of points (each with position, previous position, and a lock state).numSegments: how many parts the rope has. segmentLength: how long each part of the rope is. gravity: a vector simulating downward pull.
+4/24/25
+Working on the game, I want levels and a screen that allows for you to go back to any level you want, a win screen, a fail screen and rock background with platforms  I used  let rope = []; and distanceJoint(rope[i], rope[i + 1]);. To allow the player to cut the rope, I added logic inside mousePressed() to detect if a mouse click was near one of the rope segments using dist(mouseX, mouseY, x, y) < radius. Attached to the bottom of the rope is a candy object (like let candy = createVector(x, y);) that begins to fall due to gravity once the rope is cut. I added Nom at the bottom of the screen and used dist(candy.x, candy.y, nomX, nomY) < hitRadius to detect when the candy touched Nom. When it does, a message like text("Yum!", width/2, height/2); is displayed to show when it reaches him. 
+4/25/25
+Added a dropdown menu for 5 different levels, using a setup like rect(dropdownX, dropdownY, dropdownWidth, dropdownHeight); and detecting clicks within that area using conditionals inside mouseClicked(). Each level is stored as a separate state, and I created logic like if (currentLevel === 2) { loadLevel2(); } to change layouts depending on the selection. Each level came with different challenges, I could only get one rope to cut for the longest time or the candy would reach Nom and not register. Decided to stick with the same background as this was making me pull my hair out already from stress and how much code I had to input and research. velocity = pos – prevPos, then do pos += velocity + gravity and swap prevPos, and follow that with a loop enforcing each segment’s fixed length by calculating a delta vector between two points and moving each by half the “over distance.” dist(candyPos, nomPos) < nomRadius to trigger the “win” state. Building a dropdown involved drawing a rectangle at (dropX, dropY, dropW, dropH), a showMenu flag when clicks fell inside its bounds, and laying out level buttons. I animated the background by updating each star’s x-position and wrapping it around the screen, and make Venus bob up and down with something like y = baseY + sin(frameCount * speed) * amplitude.
+
+let rope = []; let numSegments = 15; let segmentLength = 15; let gravity;
+function setup() {
+  createCanvas(800, 600);
+  gravity = createVector(0, 0.4);   // Initialize rope
+  for (let i = 0; i < numSegments; i++) {
+   let x = width / 2;
+    let y = 50 + i * segmentLength;
+    rope.push({
+      pos: createVector(x, y),
+      prev: createVector(x, y),
+      locked: i === 0 // Lock the top point
+    });
+  }
+}
+
+
+function draw() {
+  background(30);
+  updateRope();
+  drawRope();
+}
+
+
+function updateRope() {
+  // Verlet Integration
+  for (let point of rope) {
+    if (!point.locked) {
+      let velocity = p5.Vector.sub(point.pos, point.prev);
+      point.prev = point.pos.copy();
+      point.pos.add(velocity);
+      point.pos.add(gravity);
+    }
+  }
+  // Constraint enforcement
+  for (let k = 0; k < 3; k++) { // Iterate multiple times for stability
+    for (let i = 0; i < rope.length - 1; i++) {
+      let p1 = rope[i];
+      let p2 = rope[i + 1];
+      let delta = p5.Vector.sub(p2.pos, p1.pos);
+      let dist = delta.mag();
+      let diff = (dist - segmentLength) / dist;
+      if (!p1.locked) p1.pos.add(delta.copy().mult(0.5 * diff));
+      if (!p2.locked) p2.pos.sub(delta.copy().mult(0.5 * diff));
+    }
+  }
+
+
+function drawRope() {
+  stroke(255);
+  strokeWeight(3);
+  noFill();
+  for (let i = 0; i < rope.length - 1; i++) {
+    line(rope[i].pos.x, rope[i].pos.y, rope[i + 1].pos.x, rope[i + 1].pos.y);
+  }
+}
+
+
+function mousePressed() {
+  // Cut rope if mouse is near any segment
+  for (let i = 0; i < rope.length - 1; i++) {
+    let d = distToSegment(createVector(mouseX, mouseY), rope[i].pos, rope[i + 1].pos);
+    if (d < 10) {
+      rope.splice(i + 1); // Remove everything after the cut
+      break;
+    }
+  }
+}
+
+
+// Distance from point to segment (for cutting detection)
+function distToSegment(p, v, w) {
+  const l2 = p5.Vector.dist(v, w) ** 2;
+  if (l2 === 0) return p5.Vector.dist(p, v);
+  let t = p5.Vector.sub(p, v).dot(p5.Vector.sub(w, v)) / l2;
+  t = constrain(t, 0, 1);
+  let projection = p5.Vector.add(v, p5.Vector.sub(w, v).mult(t));
+  return p5.Vector.dist(p, projection);
+}
+
+
+
+
+
+
+
+
