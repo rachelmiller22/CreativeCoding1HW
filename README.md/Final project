@@ -1,0 +1,97 @@
+"Snip snack"
+Final project 
+Rachel Miller 
+
+https://rachelmiller22.github.io/CreativeCoding1HW/Final%20project/index.html
+(does not work for safari) 
+
+
+Week 1 (Now):
+Finish and submit a proposal.
+Start sketching ideas for the alien, candy, rope layouts, and level backgrounds.
+Complete the code, type out paper, research A LOT of code. This is going to be the worst part because I’ve never made anything that even had obstacle collision in p5
+Find png images to use, sketch out nom (character) 
+Look up how to animate ropes and physics in p5.js. as well as as lot of LET functions and functions themselves
+Fish through tutorials
+Sample code to test how rope cutting might work, as well as the physics, upload images 
+
+Week 2:
+Get the main game loop working: cutting ropes, candy falling, and checking for success.
+Build Levels
+Make the dropdown level menu  including start screen
+Start designing the background and get a basic character animation working (like blinking or bouncing).
+Begin testing the rope mechanics with more complex layouts.
+Week 3 (Final Week):
+Finish Levels 4 and 5.
+Add the hint button, which might show the best order to cut the ropes.
+Final polish
+Playtest 
+Turn in.
+
+4/21/25
+Put thought into how the game will look  such as the candy and alien character, and I’ve made some notes about how I want each level to be different from the others such as the background. I’ve also started testing out how to make the rope mechanic work by experimenting with lines. Next, I’m planning to get one working level done before I move on to making the rest. Finalize the intro/start screen visuals Venus, spaceship, Nom peeking, Start working on the class for rope physics multiple segments with constraint-style behavior Research existing examples of rope simulation in p5.js or making things disappear /be served 
+
+
+4/22/25
+Working on the design of the start screen where I need to make a start button and instructions, the start page will need to go to the first level, I want to make a dropdown menu for the game as well, I also am going to create an image of Om Nom, which I want to be blue with antennas, while maintaining some resemblance to the game, I want a spaceship and the planet venus in the start screen. 
+4/23/25
+Working on this proposal mostly, I got the images and the start screen done, created the nom character, created a Venus planet floating, made space rocks move, some shooting stars and a spaceship as well as a title that I created that I thought was creative. Working on the psychics of the rope which will be the biggest challenge,  I am going to use points or segments  using arrays of p5.Vector objects that give tension and gravity, making the rope move like it’s swinging or bouncing when cut. I'll have to put in mouse detection for clicking on or near the rope, and then break it to let the candy fall. Rope: an array of points (each with position, previous position, and a lock state).numSegments: how many parts the rope has. segmentLength: how long each part of the rope is. gravity: a vector simulating downward pull.
+4/24/25
+Working on the game, I want levels and a screen that allows for you to go back to any level you want, a win screen, a fail screen and rock background with platforms  I used  let rope = []; and distanceJoint(rope[i], rope[i + 1]);. To allow the player to cut the rope, I added logic inside mousePressed() to detect if a mouse click was near one of the rope segments using dist(mouseX, mouseY, x, y) < radius. Attached to the bottom of the rope is a candy object (like let candy = createVector(x, y);) that begins to fall due to gravity once the rope is cut. I added Nom at the bottom of the screen and used dist(candy.x, candy.y, nomX, nomY) < hitRadius to detect when the candy touched Nom. When it does, a message like text("Yum!", width/2, height/2); is displayed to show when it reaches him. 
+4/25/25
+Added a dropdown menu for 5 different levels, using a setup like rect(dropdownX, dropdownY, dropdownWidth, dropdownHeight); and detecting clicks within that area using conditionals inside mouseClicked(). Each level is stored as a separate state, and I created logic like if (currentLevel === 2) { loadLevel2(); } to change layouts depending on the selection. Each level came with different challenges, I could only get one rope to cut for the longest time or the candy would reach Nom and not register. Decided to stick with the same background as this was making me pull my hair out already from stress and how much code I had to input and research. velocity = pos – prevPos, then do pos += velocity + gravity and swap prevPos, and follow that with a loop enforcing each segment’s fixed length by calculating a delta vector between two points and moving each by half the “over distance.” dist(candyPos, nomPos) < nomRadius to trigger the “win” state. Building a dropdown involved drawing a rectangle at (dropX, dropY, dropW, dropH), a showMenu flag when clicks fell inside its bounds, and laying out level buttons. I animated the background by updating each star’s x-position and wrapping it around the screen, and make Venus bob up and down with something like y = baseY + sin(frameCount * speed) * amplitude..
+
+
+
+
+
+
+Rope
+For the rope I used tracking, current and previous positions to handle motion. Used constraint logic, where adjacent points pull towards each other to maintain segmentLength, needed multiple passes for each frame. Finding what was too low or too high and the rope could sometimes disappear 
+Introducing levels where the candy hung from two points (the V-shape). Marking both anchor points in the middle of the rope structure froze the game. The logic determining which segments should fall or swing after a cut (isSegmentFalling, startIsMobile, etc.) was too much. 
+ The game initially only let the player cut one rope section per try because I stored the cut location in a single variable (ropeCutIndex). I had to change level 4 as well, switching to an array (cutConnections) to keep track of all the connections that had been severed by updating input handling (mousePressed, findCutSegment) to add to this array and changing the physics (updateRope) and drawing (drawRope) logic to check if a specific connection index was present in the cutConnections array.
+Design
+My initial design for Level 3 (single anchor, offset Nom) 
+Level 4, intended to require quick double cuts, was impossible because the candy went down too fast. 
+Level 3 became a V-shape requiring a specific swing. Level 4 became a much slower, wider V-shape and then a V-shape focused on a large single swing, abandoning the double-cut requirement. 
+Win Condition
+Some candy would reach Nom but not register the win screen, this happened with  multiple levels because the win condition check was too small. The candy might have been moving too fast (candySpeedSq check) or the required distance (currentWinDistance) might have been missed during the swing's arc between frames. I added console logging to see the exact distance and speed values frame-by-frame when the candy was near Nom, and temporarily drew a circle representing the win radius.
+Code Errors:
+Multiple times where the entire game did not load, showing a blank screen. The code line  nomImg.height in the loadLevelData function was the issue, usually preload  finishes first, but it's not for sure, and if the image wasn't ready, accessing properties would crash immediately. The fix was to remove that dependency and use a pre-defined offset (NOM_PLATFORM_OFFSET_Y) for calculating Nom's initial position relative to his platform. Adding guards (if (typeof img !== 'undefined')) in drawing functions also adds against missing images.
+antennaAngleR was caused by accidentally deleting the line that calculated its value inside drawNomPeeking during one of the code merges. Even though antennaAngleR was a global variable, the function relied on updating it each frame based on time, and without that update line, the reference in the drawSingleNom call failed. 
+UI:
+Interactive level buttons directly onto the canvas within the start screen drawStartScreen required managing positions and checking mouse coordinates against their bounds in mousePressed.
+Adding the 'Menu' button that works across all game states isMenuOpen flag. The draw() loop checks this flag to draw the menu panel overlay (drawMenuPanel), and mousePressed() 
+I avoided loading another image for the hint bulb by drawing one using p5 shapes (drawHintBulb). The logic involved toggling a showHint flag when the bulb was clicked and displaying the appropriate hint from the levelHints array in playGame. 
+
+start screen
+Introduces the game, allowing the player to start or select a level.
+Animated space background, peeking Nom character, flying spaceship, title graphic.
+ "Engage!" button (starts Level 1), "Menu" button.
+Space background, Nom on a platform, candy attached to anchor(s) via rope(s), level-specific obstacles (Level 5).
+Persistent "Menu" button, Hint lightbulb button. A hint box appears when the bulb is clicked.
+
+Level 1 Teaches the basic cut mechanic. Single rope, direct drop.
+Level 2 V-shape rope. Nom is on the right. Requires cutting the left rope connection to swing the candy right.
+Level 3 Nom is on the left. Requires cutting the right rope connection to swing left. Anchor points are different heights.
+Level 4  long V-shape rope with anchors far apart and at different heights. Nom is positioned to be reached by a large swing, likely on the return arc
+ Level 5 V-shape rope with a static obstacle bar below the candy. Nom is centered below the obstacle. Requires cutting both ropes quickly so the candy falls through the gap, avoiding the obstacle
+ Informs the player they failed the current level (candy went off-screen).
+Shows the final state of the level elements with a semi-transparent overlay and failure text.
+Click to Retry" prompt. Persistent "Menu" button.
+Clicking restarts the same level
+Congratulates the player for finishing all available levels.
+("Good Job! Nom is Full!").
+Click to Play Again" prompt. "Menu" button.
+Clicking returns to the start screen.
+ navigation between levels and the main menu screen
+ panel appears when the "Menu" button is clicked, containing buttons for each level and "Main Menu".
+Clicking "Main Menu" returns to the start state. Clicking a level button starts that specific level (play state). Clicking outside the panel closes it.
+
+I used preload, setup, and draw. A state machine (gameState) was necessary to handle switching between the start screen, the gameplay, and end screens. I loaded the essential images for Nom, the candy, the background elements (rocks, stars), and the title/UI graphics.
+I started by creating stars and used rock png with random positions and sizes, then updated their positions  as well as making them blink in drawStarfield and drawBackgroundRocks. Shooting stars were added, creating animated orbiting Venus and spaceships by using position updates in their drawing functions. The peeking Nom animation (drawNomPeeking) state variables (nomPeekDirection, nomPeekProgress) to control the peak-hold-hide cycle. Getting the scale (nomScale) and positioning (nomInitialY, nomPeekXStart) right took adjustment.
+ Implementing the cutting mechanic involved the findCutSegment function to determine which rope connection was closest to the mouse click, using the point-to-line-segment distance. mousePressed would then record the index before the cut. Initially, I used a single ropeCutIndex. The physics /drawing loops were changed to make ropeCutIndex and ropeCutIndex separate.
+ Level 1 was straightforward. Level 2 introduced the V-shape, where cutting near one anchor didn't work. It assumed only points after the cut index should move. UpdateRope so mobility depended only on the attached flag, almost the same thing happened with Level 3 and Level 4 was changed "cut both quickly" for an idea for a large swing. Level 5 a V-shape and a static obstacle. The win condition was unreliable, I put a circle and logging distance/speed in updateRope revealed that the thresholds were too much, especially with candy moving. Increasing win distance and the allowed speed squared fixed this.
+ReferenceError for antennaAngleR was a missing line in drawNomPeeking. A blank screen error was traced to using nomImg.height in loadLevelData before preload might have finished; switching to (NOM_PLATFORM_OFFSET_Y) ., I added "Level Failed" screen and retry logic, and multiple cuts required changing ropeCutIndex to the cutConnections array and updating all checks. Added a hint screen, the level select consists of a "Menu" button, involving isMenuOpen state and handling clicks within the menu panel overlay. GameComplete state triggered after the last level. 
+
+
